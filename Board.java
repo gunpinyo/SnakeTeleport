@@ -2,19 +2,18 @@ import java.util.*;
 class Board {
 
 	public final int rows, cols;
-	public int goalPos;
+	public final int goalPos;
 	public final Map<Integer, Integer> teleMap;
-
-    public Board(int rows, int cols) {
+    public final Player[] players;   
+ 
+    public Board(int rows, int cols, Player[] players) {
         this.rows = rows;
         this.cols = cols;
         this.goalPos = rows*cols -1;
         this.teleMap = new HashMap<Integer, Integer>();
+        this.players = players;
     }
-    public static void main(String[] args) {
-        Board test = buildBoard();
-    }
-    public void printBoard(Player[] players) {
+    public void printBoard() {
         int digit = 0;
         for(int size=goalPos;size>0;size/=10)
             digit ++;
@@ -52,7 +51,7 @@ class Board {
                 for(int k=0;k<players.length;k++)
                     if(players[k].position == curPos)
                         switch(symbol) {
-                            case ' ': symbol = players[i].symbol;
+                            case ' ': symbol = players[k].symbol;
                                       break;
                             default : symbol = '*';
                                       break;
@@ -63,7 +62,7 @@ class Board {
                     System.out.print(" "+symbol+" |");
                 } else {
                     curPos = teleMap.get(curPos);
-                    System.out.print(String.format("%0"+digit+"d",curPos)+"   |");
+                    System.out.print(String.format("%0"+digit+"d",curPos)+" "+symbol+" |");
                 }
             }
             System.out.println("$");
@@ -80,17 +79,17 @@ class Board {
             System.out.print("$");
         System.out.println();
     }
-    public static Board buildBoard() {
+    public static Board buildBoard(Player[] players) {
         System.out.print("How many rows? :");
         int rows = IOUtil.readInt();
         System.out.print("How many columns? :");
         int cols = IOUtil.readInt();
         
-        Board board = new Board(rows, cols);
+        Board board = new Board(rows, cols, players);
        
         Player[] emptyPlayers = new Player[0];
         while (true) {
-            board.printBoard(emptyPlayers);
+            board.printBoard();
             System.out.println("You now have "+board.teleMap.size()+
                                     " teleport(s).");
             System.out.println("Say  add     to add another teleport;");

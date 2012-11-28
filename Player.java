@@ -3,6 +3,7 @@ class Player {
 	public final String name;
 	public final char symbol;
 	public int position;
+    boolean isBackward;
 
 	public Player(String name,char symbol) {
 		this.name = name;
@@ -10,11 +11,17 @@ class Player {
 		position = 0;
 	}
 
-	public void move(Board board,int numSteps) {
-		if(position+numSteps <= board.goalPos)
-			position += numSteps;
+	public void move(Board board,boolean reset) {
+        if(reset)
+            isBackward = false;
+        if(!isBackward)
+            position ++;
         else
-            position = 2*board.goalPos - (position+numSteps);
+            position --;
+        if(position >= board.goalPos)
+            isBackward = true;
+        else if(position < 0)
+            isBackward = false;
 	}
 
     public boolean teleport(Board board) {
@@ -30,9 +37,9 @@ class Player {
 
         Player[] players = new Player[n];
         for (int i = 0; i<n; i++) {
-            System.out.print("Player " + (i+1) + "please enter your name : ");
+            System.out.print("Player " + (i+1) + ", please enter your name : ");
             String name = IOUtil.readString();
-            System.out.print("Player " + name + "please enter your chosen symbol : ");  
+            System.out.print("Player " + name + ", please enter your chosen symbol : ");  
 	    String symbol;
             while (true) {
                 symbol = IOUtil.readString();
@@ -46,7 +53,6 @@ class Player {
         }
         return players;
     }
-
 
 
 }
