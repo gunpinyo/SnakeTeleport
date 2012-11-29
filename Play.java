@@ -49,7 +49,7 @@ class Play {
         System.out.print("Press Enter key to continue ... ");
         IOUtil.readLine();
         for (int i=1; i<=numSteps; i++) {
-            player.move(board, i==0);
+            player.move(board, i==1);
             board.printBoard();
             System.out.println("You have moved " + i + " of " + numSteps + " steps.");
             System.out.print("Press Enter key to continue ... ");

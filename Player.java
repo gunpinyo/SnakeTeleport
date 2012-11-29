@@ -20,7 +20,7 @@ class Player {
             position --;
         if(position >= board.goalPos)
             isBackward = true;
-        else if(position < 0)
+        else if(position <= 0)
             isBackward = false;
 	}
 

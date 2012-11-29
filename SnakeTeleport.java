@@ -5,9 +5,9 @@ public class SnakeTeleport {
         Board board = Board.buildBoard(players);
         Play.buildDice();
         // cp -> current player
-        for(int cp=0;Play.whoWins(board) == null;cp=(cp+1)%players.length) {
-            int numSteps = Play.rollDice(players[cp]);
-            Play.doTurn(board,players[cp],numSteps);
+        for(board.cp=0;Play.whoWins(board) == null;board.cp=(board.cp+1)%players.length) {
+            int numSteps = Play.rollDice(players[board.cp]);
+            Play.doTurn(board,players[board.cp],numSteps);
         }
         Play.gameOver(board);
     }
