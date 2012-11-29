@@ -13,7 +13,7 @@ class Board {
         this.teleMap = new HashMap<Integer, Integer>();
         this.players = players;
     }
-    public void printBoard() {
+    public void printBoard(Player player) {
         int digit = 0;
         for(int size=goalPos;size>0;size/=10)
             digit ++;
@@ -37,6 +37,24 @@ class Board {
                 else
                     curPos = i*cols + (cols-1)-j;
                 System.out.print(String.format("%0"+digit+"d",curPos)+"   |");
+                int arrowDirection = -1; // 0->E , 1->N , 2->W , 3->S
+                if(curPos == player.position) {
+                    if(curPos%cols==cols-1)
+                        arrowDirection = 1;
+                    else if(i%2==0)
+                        arrowDirection = 0;
+                    else
+                        arrowDirection = 2;
+                    if(player.isBackward)
+                        arrowDirection = (arrowDirection+2)%4;
+                }
+                switch(arrowDirection) {
+                    case 0: System.out.print(" ->|");  break;
+                    case 1: System.out.print(" /\\|"); break;
+                    case 2: System.out.print(" <-|");  break;
+                    case 3: System.out.print(" \\/|"); break;
+                    default:System.out.print("   |");  break;
+                }
             }
             System.out.println("$");
 
@@ -62,7 +80,8 @@ class Board {
                     System.out.print(" "+symbol+" |");
                 } else {
                     curPos = teleMap.get(curPos);
-                    System.out.print(String.format("%0"+digit+"d",curPos)+" "+symbol+" |");
+                    System.out.print(String.format("%0"+digit+"d",curPos));
+                    System.out.print(symbol+" |");
                 }
             }
             System.out.println("$");
