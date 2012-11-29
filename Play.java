@@ -14,7 +14,7 @@ class Play {
     }
 
     public static void buildDice() {
-        System.out.print("Please select the size of the dice you want :");
+        System.out.print("Please select the size of the dice you want: ");
         int size; 
         while (true) {
             size = IOUtil.readInt();
@@ -46,13 +46,13 @@ class Play {
     public static void doTurn(Board board, Player player, int numSteps) {
         board.printBoard();
         System.out.println("Congratulations, you have rolled a " + numSteps + ".");
-        System.out.print("Press Enter key to continue ... ");
+        System.out.print("Press Enter key to continue ...");
         IOUtil.readLine();
         for (int i=1; i<=numSteps; i++) {
             player.move(board, i==1);
             board.printBoard();
             System.out.println("You have moved " + i + " of " + numSteps + " steps.");
-            System.out.print("Press Enter key to continue ... ");
+            System.out.print("Press Enter key to continue ...");
             IOUtil.readLine();
         }
 
